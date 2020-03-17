@@ -1,0 +1,132 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Member Registration
+
+User should be able to register himself via mobile app by filling some information such us name, phone, and etc. To make sure user use their own phone, we validate phone number using Facebook Account Kit.
+
+Technical Note:
+1. For consistency, set mobile page view as portrait (strict) to all of these steps
+2. After all these steps completed redirect user to dashboard
+3. If user not completed all steps, when user register/login again, redirect user to first register page
+
+## Step 1 [POST /register]
+
+Registration is used by user to register himself by filling a form of user details on this step. This form will be validated in the mobile app side such as:
+* Email format validity
+* Email is valid. It can use https://mailboxlayer.com/ to validate whether email is really valid or not. After user fill email in registration, it will be automatically and asynchronously validate the email to Mailboxlayer
+* Email confirmation. Email confirmation must be match with email, user previously fill
+* Valid password. Password must be at least consist of 1 capital letter, 1 numeric character, and 1 non-capital letter
+
+For Backend validation:
+1. Email must be unique
+2. If email already exists on server, show message to user and encourage them to do login or forgot password
+
++ Request (application/json)
+
+        Accept: application/x-www-form-urlencoded
+
++ Attributes (object)
+    + data (object)
+        - full_name: `Glend Maatita` (string, required)
+        - email: `glend.maatita@gmail.com` (string, required)
+        - birthday: `2000-03-02` (string, required)
+        - password: `abc123` (string, required)
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `User have been succefully registered` (string)
+        + data (object)
+            - id: `234` (string)
+            - full_name: `Glend Maatita` (string)
+            - email: `glend.maatita@gmail.com` (string)
+            - birthday: `2000-02-02` (string)
+            - hash: `abc123` (string)
+            - is_phone_confirmed: `false` (string)
+            - updated_at: `2018-03-19T06:45:54.814Z` (string)
+            - created_at: `2018-03-19T06:45:54.814Z` (string)
+
+## Step 2 [PUT /otp]
+
+In this step, User must input 6 number of PIN from OTP Provider and send back to server. Server will validate the pin to OTP Provider. There some use case on this:
+1. If PIN valid, server will send access token. In the mobile side, page will be redirected to next page
+2. if failed server will send error message and mobile app shows error message (In Toast or Snackbar)
+
+Technical Note:
+1. For Mobile App, Access Token will have no expiration date
+
++ Request (application/json)
+
+        Accept: application/json
+
++ Attributes (object)
+    + data (object)
+        - authorization_code: `abc3434` (string, required)
+        - phone: `08587474585` (string, required)
+        - hash: `etre3445465` (string, required)
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Pin validation success` (string)
+        + data (object)
+            - access_token: `abc123` (string)
+            - expires_in: `9849389345` (string)
+            - refresh_token: `def2334` (string)
+
++ Response 400
+    + Attributes (object)
+        - success: `false` (string)
+        - message: `Pin validation failed` (string)
+
+## Step 3 [GET /companies?codename={codename}]
+
+After filling profile data, user must set Team ID. Based on this team ID, system will find appropriate company/team and check whether the user already invited by the company or not. If yes, set user as its employee.
+
++ Parameters
+
+    - codename: `10` (string, required)
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Company has been successfully retrieved` (string)
+        + data (object)
+            - id: `10` (string)
+            - codename: `PTBB001` (string)
+            - name: `PT Berjuang Bersama` (string)
+            - address: `Jl. Bausastra 34 Yogyakarta` (string)
+            - phone: `(031) 84573439` (string)
+            - timezone: `asia/jakarta` (string)
+
+## Step 4 [POST /banks]
+
+Next step is adding bank account. This bank account is used for transferring cash when the user ask for its early salary.
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - full_name: `Scott Lang` (string, required)
+        - bank_name: `BCA` (string, required)
+        - bank_branch: `Veteran Surabaya` (string, required)
+        - account_number: `0674829393` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Bank Account been successfully created` (string)
+        + data (object)
+            - full_name: `Scott Lang` (string)
+            - bank_name: `BCA` (string)
+            - bank_branch: `Veteran Surabaya` (string)
+            - account_number: `0674829393` (string)

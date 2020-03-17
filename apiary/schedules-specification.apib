@@ -1,0 +1,309 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Schedule Specification
+
+Manager set employee work schedule and get the list
+
+## Schedule Lists [/companies/{company_id}/schedules?date={date}]
+
++ Parameters
+
+    - company_id (string, required)
+    - date (string, required) - date format yyyy-mm-dd
+
+### Get Schedule List [GET]
+
+Get list of company schedules
+    
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully retrieved` (string)
+        + data (array[Presense 1, Presense 2]) 
+
+                    
+## Schedule Detail [/schedules/{schedule_id}?type=once]
+Get detail of schedules
+
++ Parameters
+
+    - schedule_id (string, required) - if it's once must be id from defined id, else will from id
+
+### Get Schedule Detail Once [GET]
+Get schedule detail type once
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully retrieved` (string)
+        + data (object)
+            - id: `1` (string)
+            - employee_id: '24' (string)
+            - presence_date: `2018-05-12` (string)
+            - presence_start: `10:00` (string)
+            - presence_end: `18:00` (string)
+            - created_at: `2018-05-12 01:00` (string)
+            - updated_at: `2018-05-12 01:00` (string)
+
+## Schedule Detail [/schedules/{schedule_id}?type=continious]
+Get detail of schedules
+
++ Parameters
+
+    - schedule_id (string, required) - if it's once must be id from defined id, else will from id
+    
+    
+### Get Schedule Detail Continious [GET]
+Get schedule detail type Continious
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully retrieved` (string)
+        + data (object)
+            - id: `1` (string)
+            - employee: `2` (string)
+            - start_date: `2018-05-12` (string)
+            - end_date: `2018-05-27` (string)
+            - start_time: `10:00` (string)
+            - end_time: `18:00` (string)
+            - repeat_type: `monthly` (string)
+            - daily_frequent: `null` (string)
+            - weekly_frequent: `null` (string)
+            - weekly_frequent_days: `null` (string)
+            - monthly_frequent: `4` (string)
+            - monthly_frequent_date: `12` (string)
+            - monthly_frequent_custom_count: `4` (string)
+            - monthly_frequent_custom_days: `2` (string)
+            - yearly_frequent: `null` (string)
+            - yearly_frequent_months: `null` (string)
+            - yearly_frequent_custom_count: `null` (string)
+            - yearly_frequent_custom_days: `null` (string)
+            - deleted_date: 'null' (string)
+            - deleted_after: 'null' (string)
+            - end_repeat: 'null' (string)
+            - created_at: `2018-05-12 01:00` (string)
+            - updated_at: `2018-05-12 01:00` (string)
+
+## Insert Schedule Once [/members/{member_id}/schedules/once]
+If manager pick to "Simpan Jadwal ini Saja" = type once, otherwise type continous
+
++ Parameters
+
+    - member_id (string, required) - ID of employee
+
+### Create Schedule [POST]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - presense_date: `2018-05-12` (string, required) - date only format
+        - presense_start: `08:00` (string, required) - start time
+        - presense_end: `16:00` (string, required) - end time
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully retrieved` (string)
+        + data (array[Schedule Once])
+        
+## Update Schedule Once [/schedules/{schedule_id}/once]
+
+### Edit Schedule [PATCH]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - presense_start: `08:00` (string, required) - start time
+        - presense_end: `16:00` (string, required) - end time
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully updated` (string)
+        + data (array[Schedule Once])
+
+
+## Insert Schedule Continious [/members/{member_id}/schedules/continous]
+If manager pick to "Simpan Jadwal ini Saja" = type once, otherwise type continous
+
++ Parameters
+
+    - member_id (string, required) - ID of employee
+
+### Create Schedule [POST]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - start_date: `2018-05-12` (string, required) - format DATE ONLYt
+        - end_date: `2019-05-27` (string, required) - format DATE ONLY
+        - start_time: `08:00` (string, required) - start time format: TIME ONLY
+        - end_time: `16:00` (string, required) - end time format: TIME ONLY
+        - repeat_type: `monthly` (string)
+        - monthly_frequent: `4` (string)
+        - monthly_frequent_date: `12` (string)
+        - monthly_frequent_custom_count: `4` (string)
+        - monthly_frequent_custom_days": `2` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully retrieved` (string)
+        + data (object)
+            - id: `12`(string)
+            - start_date: `2018-05-12`(string)
+            - end_date: `2018-12-27`(string)
+            - start_time: `08:00`(string)
+            - end_time: `16:00`(string)
+            - repeat_type: `monthly`(string)
+            - monthly_frequent: `4`(string)
+            - monthly_frequent_date: `12`(string)
+            - monthly_frequent_custom_count: `4`(string)
+            - monthly_frequent_custom_days`: `2`(string)
+            - employee_id: `14`(string)
+            - created_at: `2018-05-12 01:00`(string)
+            - updated_at: `2018-05-12 01:00`(string)
+         
+        
+## Update Schedule Continious [/schedules/{schedule_id}/continous]
+
+### Edit Schedule [PATCH]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - presence_start: `2018-05-12` (string, required) - format DATE ONLYt
+        - end_date: `2019-05-27` (string, required) - format DATE ONLY
+        - start_time: `08:00` (string, required) - start time format: TIME ONLY
+        - end_time: `16:00` (string, required) - end time format: TIME ONLY
+        - repeat_type: `monthly` (string)
+        - monthly_frequent: `4` (string)
+        - monthly_frequent_date: `12` (string)
+        - monthly_frequent_custom_count: `4` (string)
+        - monthly_frequent_custom_days": `2` (string)
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member schedule list have been successfully updated` (string)
+        + data (object)
+            - id: `12`(string)
+            - employee_id: `14`(string)
+            - start_date: `2018-05-12`(string)
+            - end_date: `2018-12-27`(string)
+            - start_time: `08:00`(string)
+            - end_time: `16:00`(string)
+            - repeat_type: `monthly`(string)
+            - daily_frequent: `null`(string)
+            - weekly_frequent: `null`(string)
+            - weekly_frequent_days: `null`(string)
+            - monthly_frequent: `4`(string)
+            - monthly_frequent_date: `12`(string)
+            - monthly_frequent_custom_count: `4`(string)
+            - monthly_frequent_custom_days`: `2`(string)
+            - yearly_frequent: `null`(string)
+            - yearly_frequent_months: `null`(string)
+            - yearly_frequent_custom_count: `null`(string)
+            - yearly_frequent_custom_days: `null`(string)
+            - deleted_date: 'null' (string)
+            - deleted_after: 'null' (string)
+            - end_repeat: 'null' (string)
+            - created_at: `2018-05-12 01:00`(string)
+            - updated_at: `2018-05-12 01:00`(string)
+
+## Delete Schedule [/schedules]
+Delete Schedules
+
+### Delete Schedule [DELETE]
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - presense_start: `08:00` (string, required) - start time
+        - presense_end: `16:00` (string, required) - end time
+        - employee_id: `2` (string, required) - id of employee
+        - schedule_id: `4` (string, required) - id of schedule templates, value false if there no schedule id available to send
+        - defined_id: `false` (string, required) - id of defined schedule, value false if there no defined id available to send
+        - delete_type: `this` (string, required) - delete_type = this or after
+        - delete_date: `2018-12-31` (string, required) - specific time to be deleted format yyyy-mm-dd
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Schedule Deleted` (string)
+        
+## Data Structure
+
+### Presense 1
+- id: `1` (string)
+- defined_id: `false` (string) - when defined schedule exist, it will show the id number of the row data
++ employee 
+    - id: `1` (string)
+    - full_name: `Marta Tila` (string)
+    + assets (object)
+        - url: `http://` (string)
+        - type: avatar (string)
+- schedule_date: `2018-05-12` (string)
+- schedule_start: `08:00` (string)
+- schedule_end: `16:00` (string)
+- workhour: `8` (string)
+
+        
+### Presense 2
+- id: `2` (string)
+- defined_id: `3` (string) - when defined schedule exist, it will show the id number of the row data
++ employee 
+    - id: `2` (string)
+    - full_name: `John Cena` (string)
+    + assets (object)
+        - url: `http://` (string)
+        - type: avatar (string)  
+- schedule_date: `2018-05-12` (string)
+- schedule_start: `10:00` (string)
+- schedule_end: `18:00` (string)
+- workhour: `8` (string)
+
+### Schedule Once
+- id: `12` (string)
+- employee_id: `14` (string)
+- presence_date: `2018-05-12` (string)
+- presence_start: `08:00` (string)
+- presence_end: `16:00` (string)
+- created_at: `2018-05-12 01:00` (string)
+- updated_at: `2018-05-12 01:00` (string)

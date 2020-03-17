@@ -1,0 +1,1716 @@
+{
+	"info": {
+		"_postman_id": "5bafa9a0-9f4b-ce93-bb1e-aeadc2dd3c8a",
+		"name": "Bibitnomic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ONESIGNAL",
+			"description": null,
+			"item": [
+				{
+					"name": "https://onesignal.com/api/v1/notifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic OGM4YzkxZmItMDNmZS00ZjRmLWJjMTctNWFjMGZiNGEzYjUx"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"app_id\": \"680226d3-4d46-4a02-acd0-31e408fa0255\",\n  \"filters\": [\n  \t{\"field\": \"tag\", \"key\": \"userId\", \"relation\": \"=\", \"value\": \"10\"}\n  ],\n  \"data\": {\"foo\": \"bar\"},\n  \"headings\": {\"en\": \"English Title\", \"id\": \"Judul Indonesia\"},\n  \"contents\": {\"en\": \"English Message\", \"id\": \"Pesan Indonesia\"}\n}"
+						},
+						"url": {
+							"raw": "https://onesignal.com/api/v1/notifications",
+							"protocol": "https",
+							"host": [
+								"onesignal",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ADMIN",
+			"description": null,
+			"item": [
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": {\n\t\t\"email\": \"weasley@bibitnomic.com\",\n\t\t\"password\": \"Passw0rd\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/admin/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMPANY",
+			"description": "",
+			"item": [
+				{
+					"name": "Companies",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"name\": \"PT BUOu\\\\:.'\\\\buk Barensg 23\",\n        \"unique_id\": \"128gurb892brn8qrewufibasnd\",\n        \"address\": \"Jl. Bausastra 34 Yogyakarta\",\n        \"phone\": \"084573439\",\n        \"timezone\": \"asia/jakarta\",\n        \"location\": \"1,2\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Companies Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": {\n    \t\"address\": \"Jl. Bausastra 47 Yogyakarta\",\n    \t\"phone\": \"0845745123945\",\n    \t\"timezone\": \"asia/jakarta\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"notif_presence_overdue\": \"15\",\n        \"presence_overdue_limit\": \"30\",\n        \"overwork_limit\": \"8\",\n        \"notif_overwork\": \"true\",\n        \"rest_limit\": \"20\",\n        \"notif_work_schedule\": \"24\",\n        \"automated_payroll\": \"false\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/settings",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Company Settings",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"notif_presence_overdue\": \"15\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/settings",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Company Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"notif_presence_overdue\": \"15\",\n        \"presence_overdue_limit\": \"30\",\n        \"overwork_limit\": \"8\",\n        \"notif_overwork\": \"true\",\n        \"rest_limit\": \"20\",\n        \"notif_work_schedule\": \"24\",\n        \"automated_payroll\": \"false\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/settings",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Company Members",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"notif_presence_overdue\": \"15\",\n        \"presence_overdue_limit\": \"30\",\n        \"overwork_limit\": \"8\",\n        \"notif_overwork\": \"true\",\n        \"rest_limit\": \"20\",\n        \"notif_work_schedule\": \"24\",\n        \"automated_payroll\": \"false\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/members",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Companies Get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"name\": \"PT Becak Barensg 23\",\n        \"address\": \"Jl. Bausastra 34 Yogyakarta\",\n        \"phone\": \"084573439\",\n        \"timezone\": \"asia/jakarta\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies?codename=RFCTRY-001",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "codename",
+									"value": "RFCTRY-001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MEMBER",
+			"description": "",
+			"item": [
+				{
+					"name": "Invite Member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81def9a1-8537-44aa-8f04-cbcc6bad9c30",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c0d9d481-7664-4d44-ae38-e2c25d953c97",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"name\": \"Tony Stark\",\n        \"email\": \"dhihanlaksana@live.com\",\n        \"phone\": \"08567148394\",\n        \"salary\": \"10000000\",\n        \"workdays\": \"20\",\n        \"daily_salary\": \"500000\",\n        \"role\": \"2\",\n        \"flag\": \"1\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/members",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Member Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file"
+								},
+								{
+									"key": "type",
+									"value": "checkout",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "-7.7970677, 110.3751686",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/1?month=06&year=2018",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "06"
+								},
+								{
+									"key": "year",
+									"value": "2018"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Member Notes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/1/notes",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Member Journal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"data\": {\n\t\t\"type\": \"other\",\n\t\t\"debet\": 500,\n\t\t\"kredit\": 0,\n\t\t\"description\": \"Adjustment for Jun 2018\",\n\t\t\"created_at\": \"2018-06-07 12:00:00\",\n\t\t\"update_at\": \"2018-06-07 12:16:49\" \n\t} \n\t\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/1/journals",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1",
+								"journals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Member List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/members",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE member",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DASHBOARD",
+			"description": "",
+			"item": [
+				{
+					"name": "Anggota Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/me/deposit-summary?month=06&year=2018",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me",
+								"deposit-summary"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "06"
+								},
+								{
+									"key": "year",
+									"value": "2018"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/deposit-summary?month=06&year=2018",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"deposit-summary"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "06"
+								},
+								{
+									"key": "year",
+									"value": "2018"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRESENCE",
+			"description": "",
+			"item": [
+				{
+					"name": "GET Presences List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file"
+								},
+								{
+									"key": "type",
+									"value": "checkout",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "-7.7970677, 110.3751686",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/presences?date=2018-06-07",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"presences"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2018-06-07"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Presences Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file"
+								},
+								{
+									"key": "type",
+									"value": "checkout",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "-7.7970677, 110.3751686",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/presences/6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"presences",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rest Checklog",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "rest_end",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "-7.7970677, 110.3751686",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/me/checklog/rest",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me",
+								"checklog",
+								"rest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checklog",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "checkin",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "-7.7970677, 110.3751686",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/me/checklog",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me",
+								"checklog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Presences Time",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": {\n\t\t\"rest_end\": \"2018-06-07 10:30:00\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/presences/1/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"presences",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Presences Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": {\n\t\t\"type\": \"leave\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/1/absence/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1",
+								"absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE Manual Presence",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"presence_start\": \"2018-06-29 12:00:00\",\n        \"presence_end\": \"2018-06-29 19:00:00\",\n        \"rest_start\": \"2018-06-29 15:00:00\",\n        \"rest_end\": \"2018-06-29 16:00:00\",\n        \"bonus\": 25000,\n        \"penalty\": 5000,\n        \"notes\": \"kamu ganteng deh\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/presences/create?member=2&date=2018-07-03&type=leave",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"presences",
+								"create"
+							],
+							"query": [
+								{
+									"key": "member",
+									"value": "2"
+								},
+								{
+									"key": "date",
+									"value": "2018-07-03"
+								},
+								{
+									"key": "type",
+									"value": "leave"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EXPORT Presences",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/export/presences?month=07&year=2018",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"export",
+								"presences"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "07"
+								},
+								{
+									"key": "year",
+									"value": "2018"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SCHEDULE",
+			"description": "",
+			"item": [
+				{
+					"name": "POST Schedule Once",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"presence_date\": \"2018-07-20\",\n    \"presence_start\": \"09:00\",\n    \"presence_end\": \"17:00\"\n  }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/1/schedules/once",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1",
+								"schedules",
+								"once"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Schedule Continous",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"start_date\": \"2018-06-20\",\n        \"end_date\": \"2018-06-30\",\n        \"start_time\": \"07:00\",\n        \"end_time\": \"15:00\",\n        \"repeat_type\": \"monthly\",\n        \"monthly_frequent\": \"1\",\n        \"monthly_frequent_date\": \"1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18,19,20\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/members/2/schedules/continous",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"2",
+								"schedules",
+								"continous"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Schedule List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/companies/1/schedules?date=2018-07-20",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"companies",
+								"1",
+								"schedules"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2018-07-20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Schedule Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/schedules/1?type=continous",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedules",
+								"1"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "continous"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Schedule",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"schedule_id\": \"1\",\n        \"defined_id\": false,\n        \"delete_type\": \"this\",\n        \"delete_date\": \"2018-07-14\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/schedules",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedules"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FEEDBACK",
+			"description": "",
+			"item": [
+				{
+					"name": "Feedbacks Conversations",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRhbXBhbjJAZ2FudGVuZy5jb20iLCJpZCI6MSwiZnVsbF9uYW1lIjoiZ2FudGVuZ2JhbmdldCIsImlhdCI6MTUyMjIzMDYyOCwiZXhwIjoxNTUzNzY2NjI4LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.7P5Z-4m-9WjKjdIyMJDKVPY0N9Qfl4u9BZC0oecKlT8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"feedback_id\": 8,\n        \"message\": \"Tolong saya ada kesulitan 2\"\n    }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/me/conversation",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"me",
+								"conversation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Feedbacks Get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"summary\": \"Mengenai Pembayaran Pinjaman\",\n        \"message\": \"Tolong saya ada kesulitan\"\n    }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/feedbacks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Feedbacks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"summary\": \"Mengenai Pembayaran Pinjaman\",\n        \"message\": \"Tolong saya ada kesulitan\"\n    }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/feedbacks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ME",
+			"description": "",
+			"item": [
+				{
+					"name": "Me",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"full_name\": \"Refactory Test\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/me",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Banks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"full_name\": \"Glen Maatita\",\n        \"bank_name\": \"BCA\",\n        \"bank_branch\": \"UGMsss\",\n        \"account_number\": \"123124\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/banks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"banks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraws",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"total_amount\": \"200000\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/me/withdraws",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me",
+								"withdraws"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Withdraws",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"total_amount\": \"500000\"\n    }\n}\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/me/withdraws",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me",
+								"withdraws"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/me/notifications",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"me",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "full_name",
+							"value": "Tony Stark",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "wkwkwkwk221312@ganteng.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "tampanbanget",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "1995-11-12",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "08218321333",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"email_phone\": \"dhanialrizky@gmail.com\",\n    \"password\": \"tampanbanget\",\n    \"provider\": \"local\"\n  }\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n\t        \"refresh_token\": \"yz9e30delb\"\n    }\n}\n"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/refresh-token",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FORGOT PASSWORD",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": {\n\t\t\"email\": \"dhanialrizky@gmail.com\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/forgot-password",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"forgot-password"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2179fbc0-1082-4b05-8943-0cb98ac02437",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "491c192e-0c5f-420a-8409-4bb2248a8779",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "dddea89c-953d-4a23-af39-ac4d9cb95056",
+			"key": "accessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indrd2t3a3drQGdhbnRlbmcuY29tIiwiaWQiOjEsImZ1bGxfbmFtZSI6IkpvaG4gYnVpZCIsImlhdCI6MTUyNjYyNDYzMywiZXhwIjoxNTU4MTYwNjMzLCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.u4wpz1ymQRj0RoeKrFa0iVo2kLLfZvxZfFgaJCMUPs8",
+			"type": "string",
+			"disabled": true,
+			"description": ""
+		}
+	]
+}

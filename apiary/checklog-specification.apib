@@ -1,0 +1,44 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Checklog Specification
+
+Employee can do checking or checkout just by uploading their own selfie photo with some term & conditions.
+
+## Checkin [/me/checklog]
+
++ Parameters
+
+    - location (string, required) - Location coordinate
+    - type (string, required) - checkin
+    - file (string, required) - Selfie photo
+
+### Get Checkin [GET]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+  + Attributes (object)
+        - success: `true` (string)
+        - message: `Anda berhasil melakukan check-in` (string)
+
+## Checkout [/me/checklog]         
+
++ Parameters
+
+    - type (string, required) - checkout
+
+### Get Checkout [GET]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+  + Attributes (object)
+        - success: `true` (string)
+        - message: `Anda berhasil melakukan checkout` (string)

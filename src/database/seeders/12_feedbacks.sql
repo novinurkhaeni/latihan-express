@@ -1,0 +1,10 @@
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'erat tortor', 'pending', '2017-10-18 06:57:30', '2017-12-13 21:07:20');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'a ipsum integer a', 'onprocess', '2018-01-22 17:04:42', '2017-11-26 22:33:25');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'habitasse platea dictumst', 'onprocess', '2017-10-16 10:55:34', '2017-10-22 21:54:04');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'justo morbi ut odio cras', 'pending', '2018-04-24 05:18:51', '2017-12-30 22:32:38');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'dui', 'resolved', '2018-05-21 13:29:24', '2018-01-28 20:33:05');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'mauris non ligula pellentesque', 'pending', '2018-03-12 09:00:46', '2018-03-26 14:20:49');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'justo eu massa donec', 'pending', '2018-02-15 17:46:11', '2018-03-10 12:20:04');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'tellus', 'resolved', '2018-06-22 11:14:09', '2018-02-22 00:28:59');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'sed lacus', 'resolved', '2018-03-02 08:33:34', '2018-01-02 16:24:55');
+insert into feedbacks (employee_id, summary, status, created_at, updated_at) values (1, 'fusce', 'pending', '2018-06-26 04:36:32', '2017-07-24 19:39:52');

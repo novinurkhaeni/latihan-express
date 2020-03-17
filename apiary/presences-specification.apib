@@ -1,0 +1,340 @@
+FORMAT: 1A
+HOST: http://api/v1
+
+# gajiandulu-api
+
+Presence specification
+
+IMPORTANT NOTE!
+
+All end-points are prefixed with /api/v1/{path}
+
+In the presence dashboard, a manager can see presences list of his member along with some information such as start work, end work, start rest, and end rest. 
+
+The manager can also see presence detail of a member in a specific day
+
+# Presence List
+
+### `GET /companies/{company_id}/presences?date={date}`
+
+###### Request Header 
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+| `Authorization` | Bearer `token` |
+
+###### Request Params
+| Name | Required | Value |
+| ---- | -------- | ----- |
+| `company_id` | `true` | Company ID |
+| `date` | `true` | Date in format `Y-m-d` |
+
+###### Response Header
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+
+# Presence Details
+
+### `GET /companies/{company_id}/presences/{presence_id}`
+
+###### Request Header 
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+| `Authorization` | Bearer `token` |
+
+###### Request Params
+| Name | Required | Value |
+| ---- | -------- | ----- |
+| `company_id` | `true` | Company ID |
+| `presence_id` | `true` | Presence ID |
+
+###### Response Header
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+
+# Create Manual Presence
+
+### `POST /presences/create?member={member_id}&date={date}&type={type}`
+
+###### Request Header 
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+| `Authorization` | Bearer `token` |
+
+###### Request Query
+| Name | Required | Value |
+| ---- | -------- | ----- |
+| `member_id` | `true` | Employee ID |
+| `date` | `true` | Date in format `Y-m-d` |
+| `type` | `false` | Only used when it's `absence` or `leave`, also means all request body not have to required |
+
+###### Request Body
+| Field | Required | Type      | Description  |                                          
+| ----- | -------- | -------   | ------------ | 
+| `presence_start` | `true`   | `DATETIME`  | start time of presence |
+| `presence_end` | `true`   | `DATETIME`  | end time of presence |
+| `rest_start` | `true`   | `DATETIME`  | rest start of presence |
+| `rest_end` | `true`   | `DATETIME`  | rest end of presence |
+| `bonus` | `false`   | `string`  | salary bonus of today presence |
+| `penalty` | `false`   | `string`  | salary penalty of today presence |
+| `notes` | `false`   | `string`  | salary notes of today presence |
+
+###### Response Header
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+
+
+# Delete Presence
+
+### `DELETE /presences/{presence_id}`
+
+#### Request Header 
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+| `Authorization` | Bearer `token` |
+
+#### Request Params
+| Field | Required | Description  |                                          
+| ----- | -------- | ------------ | 
+| `schedule_id` | `TRUE` | id of presence |
+
+#### Response Header
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+
+
+# Export Monthly Schedule
+
+### `GET /companies/{company_id}/export/presences?month={month}&year={year}`
+
+Request to send xls file of monthly presences of the company
+
+#### Request Header 
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+| `Authorization` | Bearer `token` |
+
+#### Request Query 
+| Name | Value |
+| ---- | ----- |
+| `month` | month specific, format: 08 means Agustus |
+| `year` | year specific, format: 1999 |
+
+#### Request Parameter 
+| Name | Value |
+| ---- | ----- |
+| `company_id` | id of the company |
+
+#### Response Header
+| Name | Value |
+| ---- | ----- |
+| `Content-Type` | application/json |
+
+###### Presence List [/companies/{company_id}/presences?date={date}]
+###### Presence List [GET]
+
++ Response 200 (application/json)
+
+        {
+            "success": "true",
+            "message": "Presences list has been successfully retrieved",
+            "data": [
+            {
+            "id": "1",
+            "presence_date": "2018-05-21",
+            "presence_start": "2018-05-21 08:00:00",
+            "presence_end": "2018-05-21 16:00:00"
+            "rest_start": "2018-05-21 12:00:00",
+            "rest_end": "2018-05-21 12:30:00",
+            "presence_overdue": "0",
+            "rest_overdue": "0",
+            "is_absence": "false",
+            "is_leave": "false",
+            "overwork": "1",
+            "work_hours": "8",
+            "employee": {
+                "id": "2",
+                "role": "1",
+                "full_name": "Tony Stark",
+                "email": "tony@stark.com",
+                "phone": "0856373493",
+                "assets": [
+                    {
+                        "type": "avatar",
+                        "url": "/path/to/picture"
+                    }
+                ]
+            }
+        }
+            ]
+        }
+
+###### Presence Detail [/companies/{company_id}/presences/{presence_id}]
+###### Presence Detail [GET]
+
++ Response 200 (application/json)
+
+        {
+        "success": "true",
+        "message": "Presence detail has been successfully retrieved",
+        "data": {
+        "id": "1",
+        "presence_date": "2018-05-21",
+        "presence_start": "2018-05-21 08:00:00",
+        "presence_end": "2018-05-21 16:00:00"
+        "rest_start": "2018-05-21 12:00:00",
+        "rest_end": "2018-05-21 12:30:00",
+        "presence_overdue": "0",
+        "rest_overdue": "0",
+        "is_absence": "false",
+        "is_leave": "false",
+        "overwork": "1",
+        "work_hours": "8",
+        "salary": "250000",
+        "bonus": "9000",
+        "penalty": "13220",
+        "presence_assets": [
+            {
+                "type": "checkin",
+                "url": "http://",
+            },
+            {
+                "type": "checkout",
+                "url": "http://",
+            },
+            {
+                "type": "rest_start",
+                "url": "http://",
+            },
+            {
+                "type": "rest_end",
+                "url": "http://",
+            },
+        ],
+        "notes": [
+            {
+                "id": "1",
+                "date": "2018-05-21",
+                "notes": "mantap",
+            },
+            {
+                "id": "2",
+                "date": "2018-05-21",
+                "notes": "apa aja,
+            },
+        ],
+        "employee": {
+            "id": "2",
+            "role": "1",
+            "full_name": "Tony Stark",
+            "email": "tony@stark.com",
+            "phone": "0856373493",
+            "assets": [
+                {
+                    "type": "avatar",
+                    "url": "/path/to/picture"
+                }
+            ]
+        }
+        }
+        }
+
+###### Create Manual Presence [/presences/create?member={member_id}&date={date}&type={type}]
+###### Create Manual Presence [POST]
+
++ Request (application/json)
+
+        {
+            "data" : {
+                "presence_start" : "2018-05-12 12:00:00",
+                "presence_end": "2018-05-12 19:00:00",
+                "rest_start": "2018-05-12 15:00:00",
+                "rest_end": "2018-05-12 16:00:00"
+            }
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: 1
+
+    + Body
+
+            {
+             "success": "true",
+             "message": "Presences list has been successfully retrieved"
+            }
+
+###### Delete Presence [/presences/{presence_id}]
+###### Delete Presence [DELETE]
+
++ Response 200 (application/json)
+
+        {
+        "success": "true",
+        "message": "Presence deleted",
+        }
+        
+###### Export Monthly Schedule [/companies/{company_id}/export/presences?month={month}&year={year}]
+###### Export Monthly Schedule [GET]  
+
++ Response 200 (application/json)
+
+        {   
+            "success": "true",
+            "message": "File exported to email",
+        }
+
+###### Edit presences specification [/presences/{presence_id}/edit]
+###### Edit presences specification [PATCH]
+
++ Parameter
+    - presence_id (string, required) - id of presence
+ 
++ Request (application/json)
+
+        {
+            "data" : {
+                "presence_start" : "2018-05-12 12:00:00",
+                "presence_end": "2018-05-12 19:00:00",
+                "rest_start": "2018-05-12 15:00:00",
+                "rest_end": "2018-05-12 16:00:00"
+            }
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "status": true,
+                "message": "Presence data has been successfully updated",
+                "data": {
+                    "id": 1,
+                    "employee_id": 1,
+                    "presence_date": "2018-07-26",
+                    "presence_start": "2018-05-12T05:00:00.000Z",
+                    "presence_end": "2018-05-12T12:00:00.000Z",
+                    "rest_start": "2018-05-12T08:00:00.000Z",
+                    "rest_end": "2018-05-12T09:00:00.000Z",
+                    "presence_overdue": null,
+                    "rest_overdue": null,
+                    "is_absence": 0,
+                    "is_leave": 0,
+                    "overwork": null,
+                    "work_hours": null,
+                    "checkin_location": null,
+                    "checkout_location": null,
+                    "created_at": "2018-07-26T15:30:19.000Z",
+                    "updated_at": "2018-07-26T08:30:24.000Z"
+                }
+            }

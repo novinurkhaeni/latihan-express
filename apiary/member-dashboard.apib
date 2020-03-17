@@ -1,0 +1,143 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Member Dashboard
+
+Through the dashboard, an employee can see how many hours he has done so far, and how much money they can withdraw.
+
+## Salary & Work Hour summary [/me/deposit-summary?month={month}&year={year}]
+
++ Parameters
+
+    - month (string, required) - Month, in 1-12, default is current month
+    - year (string, required) - Year, 4 digit number, default is current year
+
+### Get Salary & Work Hour summary [GET]
+
+Get list of salary & work wour summary
+    
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member detail been successfully retrieved` (string)
+        + data (object) 
+            - id: `1` (number)
+            - full_name: `refactory` (string)
+            - email: `test@refactory.id` (string)
+            - phone: `082221149696` (string)
+            - flag: `3` (string)
+            - withdraws: `0` (number)
+            - employee_notes: []
+            - salary_summary (object)
+                - month: `7` (string)
+                - year: `2018` (string)
+                - bonus: `null` (string)
+                - penalty: `null` (string)
+                - nett_salary: `0` (number)
+                - mtd_gross_salary: `0` (number)
+                - monthly_gross_salary: `11509812` (number)
+                - workhour: `0` (number)
+            - presences: []
+            - assets: []
+                    
+## Withdraw [/me/withdraws]
+
+### Withdraw Request [POST]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - fee: 30000 (number) - promo code
+        - tax: 3000 (number) - promo code
+        - total_amount: 500000 (number) - total request for withdraw
+        - total_nett: 467000 (number)
+        - code: `qwerty` (string) - promo code
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Withdraw has been successfully created` (string)
+        + data (object)
+            - status: 0 (number)
+            - id: `101` (number)
+            - journal_id: `201` (number)
+            - tax: `3000` (number)
+            - fee: `30000` (number)
+            - total: `500000` (number)
+            - total_nett: 467000 (number)
+            - created_at: `2018-05-12 01:00` (string)
+            - updated_at: `2018-05-12 01:00` (string)
+
+### Get withdraw history [GET]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Withdraws histories been successfully retrieved` (string)
+        + data (array[withdraw 1, withdraw 2])
+        
+        
+## Recieve Promo [/promos]
+
+### Recieve Promo [POST]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    +data (object)
+        - code: `qwerty` - Promo code
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Promo berhasil didapat` (string)
+        + data (object)
+            - id: `1` (number)
+            - code: `qwerty` (string)
+            - type: `percentage` (string)
+            - amount: `10` (number)
+            - expirated_date: `2019-09-23` (string)
+            - limit: `103` (number)
+            - usage: `24` (number)
+            - created_at: `2018-05-12 01:00` (string)
+            - updated_at: `2018-05-12 01:00` (string)
+
+## Data Structure
+
+### withdraw 1
+- total: 808000 (number)
+- status: 0 (number)
+- created_at: `2017-12-16T20:27:47.000Z` (string)
+- journal (object)
+-    id: 24 (number)
+-    employee_id: 1 (number)
+-    type: `withdraw` (string)
+- assets: []
+
+        
+### withdraw 2
+- total: 500000 (number)
+- status: 0 (number)
+- created_at: `2018-07-25T08:04:09.000Z` (string)
+- journal (object)
+-    id: 201 (number)
+-    employee_id: 1 (number)
+-    type: `withdraw` (string)
+- assets: []

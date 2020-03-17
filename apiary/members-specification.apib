@@ -1,0 +1,183 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Members Spesification
+
+On member dashboard, an employer can see member list along with some information like total salary, total workhour, and status.
+
+## Member Dashboard & Invite [/companies/{company_id}/members]
+
++ Parameters
+
+    - company_id: `12` (string, required)
+
+### Member Dashboard [GET]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member list been successfully retrieved` (string)
+        + data (array[Member])
+
+### Invite Member [POST]
+
+Employer can adding a member into his team. This invitation will send an email  to the user.
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - name: `Tony Stark` (string, required)
+        - email: `tony@stark.com` (string, required)
+        - phone: `tony@0856748394.com` (string, required)
+        - salary: `5000000` (string)
+        - workdays: `20` (number, required)
+        - role: `1` (number, required)
+        - flag: `1` (number, required)
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `New member has been successfully added` (string)
+        + data (object)
+            - id: `12` (string)
+            - name: `Tony Stark` (string)
+            - email: `tony@stark.com` (string)
+            - phone: `tony@0856748394.com` (string)
+            - salary: `5000000` (string)
+            - workdays: `20` (string)
+            - daily_salary: `1000000` (string)
+            - role: `1` (string)
+            - flag: `1` (string)
+
+## Member Detail & Approve [/members/{member_id}]
+
++ Parameters
+    - member_id: `12` (string, required)
+
+### Member Detail [GET]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member detail been successfully retrieved` (string)
+        + data (object)
+            - id: `12` (string)
+            - full_name: `Tony Stark` (string)
+            - email: `tony@stark.com` (string)
+            - phone: `tony@0856748394.com` (string)
+            - flag: `3` (string)
+            + salary_summary (object)
+                - month: `2` (string)
+                - year: `2018` (string)
+                - nett_salary: `500000` (string)
+                - mtd_gross_salary: `1000000` (string)
+                - monthly_gross_salary: `2000000` (string)
+                - workhour: `60` (string)
+            + presences (array[Presence])
+            + assets (array[Asset])
+
+### Approve Member [PATCH]
+
+Employer can approve a member. After approved, member status will become 3.
+
++ Attributes (object)
+    + data (object)
+        - flag: `3` (string, required)
+        
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Member status has been successfully updated` (string)
+
+## Absence or Leaving [POST /members/{employee_id}/absence]
+
+Employer can set a member presence status into absence or leaving.
+
++ Parameters
+    - employee_id: `12` (string, required)
+    
++ Attributes (object)
+    + data (object)
+        - type: `absence` (string, required)
+        
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Employee is successfully set leaving today` (string)
+
+## Data Structures
+
+### Member
+- id: `12` (string)
+- full_name: `Tony Stark` (string)
+- email: `tony@stark.com` (string)
+- phone: `tony@0856748394.com` (string)
+- flag: `3` (string)
+- role: `2` (string)
++ salary_summary (object)
+    - month: `2` (string)
+    - year: `2018` (string)
+    - nett_salary: `500000` (string)
+    - workhour: `60` (string)
+
+### Presence
+- presence_date: `2018-05-01` (string)
+- presence_start: `2018-05-01 08:00` (string)
+- presence_end: `2018-05-01 17:00` (string)
+- rest_start: `2018-05-01 12:00` (string)
+- rest_end: `2018-05-01 13:00` (string)
+- presence_overdue: `40` (string)
+- is_absence: `false` (string)
+- is_leave: `false` (string)
+- overwork: `0` (string)
+- work_hours: `8` (string)
++ journals (array)
+    - (Journal 1)
+    - (Journal 2)
+    - (Journal 3)
+
+### Asset
+- url: `http://localhost/` (string)
+- type: `avatar` (string)
+
+### Journal 1
+- type: `salary` (string)
+- debet: `5000` (string)
+- credit: `0` (string)
+- description: `Daily salary` (string)
+
+### Journal 2
+- type: `fine` (string)
+- debet: `0` (string)
+- credit: `100` (string)
+- description: `Absence overdue` (string)
+
+### Journal 3
+- type: `notes` (string)
+- debet: `0` (string)
+- credit: `1000` (string)
+- description: `Memecahkan gelas` (string)

@@ -1,0 +1,169 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Member Registration
+
+User should be able to register himself via mobile app by filling some information such us name, phone, and etc. To make sure user use their own phone, we validate phone number using Facebook Account Kit.
+
+Technical Note:
+1. For consistency, set mobile page view as portrait (strict) to all of these steps
+2. After all these steps completed redirect user to dashboard
+3. If user not completed all steps, when user register/login again, redirect user to first register page
+
+## Step 1 [POST /register]
+
+Registration is used by user to register himself by filling a form of user details on this step. This form will be validated in the mobile app side such as:
+* Email format validity
+* Email is valid. It can use https://mailboxlayer.com/ to validate whether email is really valid or not. After user fill email in registration, it will be automatically and asynchronously validate the email to Mailboxlayer
+* Email confirmation. Email confirmation must be match with email, user previously fill
+* Valid password. Password must be at least consist of 1 capital letter, 1 numeric character, and 1 non-capital letter
+
+For Backend validation:
+1. Email must be unique
+2. If email already exists on server, show message to user and encourage them to do login or forgot password
+
+**Request Description**:
+
+That payload will be saved into database, table users. Column is_phone_confirmed will automatically set as false since user don't confirm his phone number yet. Confirmation will be done via OTP.
+
+**Response Description**:
+
+Hash will be used as identifier, since user don't have access token yet. So, any access to public endpoint that need to protected must include hash. Phone not saved yet, because phone will be saved along with authorization checking.
+
++ Request (application/json)
+
+        Accept: application/x-www-form-urlencoded
+
++ Attributes (object)
+    + data (object)
+        - full_name: `Glend Maatita` (string, required)
+        - email: `glend.maatita@gmail.com` (string, required)
+        - birthday: `2000-03-02` (string, required)
+        - password: `abc123` (string, required)
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `User have been succefully registered` (string)
+        + data (object)
+            - id: `234` (string)
+            - full_name: `Glend Maatita` (string)
+            - email: `glend.maatita@gmail.com` (string)
+            - birthday: `2000-02-02` (string)
+            - hash: `abc123` (string)
+            - is_phone_confirmed: `false` (string)
+            - updated_at: `2018-03-19T06:45:54.814Z` (string)
+            - created_at: `2018-03-19T06:45:54.814Z` (string)
+
+## Step 2 [PUT /otp]
+
+In this step, User must input 6 number of PIN from OTP Provider and send back to server. Server will validate the pin to OTP Provider. There some use case on this:
+1. If PIN valid, server will send access token. In the mobile side, page will be redirected to next page
+2. if failed server will send error message and mobile app shows error message (In Toast or Snackbar)
+
+Technical Note:
+1. For Mobile App, Access Token will have no expiration date
+
+**Request Description**:
+
+If authorization_code match, server will update is_phone_confirmed as true. Phone will be saved to users table.
+
+**Description**:
+
+Server will check whether access_token valid and not expired. If token expired, server will response with 401 Unathorized. On mobile side, if response is 401 Unauthorized, app will automatically send payload to refresh token endpoint.
+
++ Request (application/json)
+
+        Accept: application/json
+
++ Attributes (object)
+    + data (object)
+        - authorization_code: `abc3434` (string, required)
+        - phone: `08587474585` (string, required)
+        - hash: `etre3445465` (string, required)
+        
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Pin validation success` (string)
+        + data (object)
+            - access_token: `abc123` (string)
+            - expires_in: `9849389345` (string)
+            - refresh_token: `def2334` (string)
+
++ Response 400
+    + Attributes (object)
+        - success: `false` (string)
+        - message: `Pin validation failed` (string)
+
+## Step 3 [POST /companies]
+
+After filling profile data, user must put info about his team/company.
+
+**Request Description**:
+
+The payload will be saved to companies table. Plus server will automatically find a user by token and save it in table employees as manager, with column active set as true.
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - name: `PT Berjuang Bersama` (string, required)
+        - address: `Jl. Bausastra 34 Yogyakarta` (string, required)
+        - phone: `(031) 84573439` (string, required)
+        - timezone: `asia/jakarta` (string, required)
+        - location: `7.23452369, 115.123294` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Company has been successfully created` (string)
+        + data (object)
+            - id: `10` (string)
+            - codename: `PTBB001` (string)
+            - name: `PT Berjuang Bersama` (string)
+            - address: `Jl. Bausastra 34 Yogyakarta` (string)
+            - phone: `(031) 84573439` (string)
+            - timezone: `asia/jakarta` (string)
+            - location: `7.23452369, 115.123294` (string)
+
+## Step 4 [POST /companies/{id}/settings]
+
+Next step is completing company setting like work hour, notification, etc.
+
++ Parameters
+
+    - id: `10` (string, required)
+    
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - notif_presence_overdue: `15` (string, required)
+        - presence_overdue_limit: `30` (string, required)
+        - overwork_limit: `8` (string, required)
+        - notif_overwork: `true` (string, required)
+        - rest_limit: `20` (string, required)
+        - notif_work_schedule: `24` (string, required)
+        - automated_payroll: `false` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Company setting been successfully updated` (string)
+        + data (object)
+            - id: `Scott Lang` (string)
+            - company_id: `BCA` (string)
+            - notif_presence_overdue: `15` (string)
+            - presence_overdue_limit: `30` (string)
+            - overwork_limit: `8` (string)
+            - notif_overwork: `true` (string)
+            - rest_limit: `20` (string)
+            - notif_work_schedule: `24` (string)
+            - automated_payroll: `false` (string)

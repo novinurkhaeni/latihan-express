@@ -1,0 +1,185 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Setting specification
+
+A manager can update his company setting through setting page. This menu to update company setting can be found on Profile Setting page.
+
+## Company Setting [/companies/{company_id}/settings]
+Company's setting can be retrieved to match with offline data on the device
+
++ Parameters
+
+    - company_id (string, required)
+
+### Get Setting [GET]
+    
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Settings has been successfully created` (string)
+        + data (object)
+            - id: `1` (string)
+            - codename: `PTMR` (string)
+            - name: `PT Merpati Raya` (string)
+            - address: `Jl. Bausastra 45 Yogyakarta` (string)
+            - phone: `08565840454` (string)
+            - timezone: `asia/jakarta` (string)
+            - created_at: `2018-03-02 08:30:20` (string)
+            - employee (object)
+                - id: `2` (string)
+                - role: `1` (string)
+                - full_name: `Tony Stark` (string)
+                - email: `tony@stark.com` (string)
+                - phone: `0856373493` (string)
+                - assets (array)
+                    - type: `profile_picture` (string)
+                    - path: `/path/to/picture`
+                - setting (object)
+                - notif_presence_overdue: `10` (string)
+                - presence_overdue_limit: `10` (string)
+                - overwork_limit: `10` (string)
+                - notif_overwork: `true` (string)
+                - rest_limit: `10` (string)
+                - notif_work_schedule: `10` (string)
+                - automated_payroll: `true` (string)
+
+### Update Setting [PATCH]
+    
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - notif_presence_overdue: `10` (number, nullable)
+        - presence_overdue_limit: `10` (number, nullable)
+        - overwork_limit: `10` (number, nullable)
+        - notif_overwork: `true` (boolean, nullable)
+        - rest_limit: `10` (number, nullable)
+        - notif_work_schedule: `10` (number, nullable)
+        - automated_payroll: `true` (boolean, nullable)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Setting has been successfully updated` (string)
+        + data (object)
+            - notif_presence_overdue: `10` (string, nullable)
+            - presence_overdue_limit: `10` (string, nullable)
+            - overwork_limit: `10` (string, nullable)
+            - notif_overwork: `true` (string, nullable)
+            - rest_limit: `10` (string, nullable)
+            - notif_work_schedule: `10` (string, nullable)
+            - automated_payroll: `true` (string, nullable)
+                    
+## Update Company [/companies/{company_id}]
+
++ Parameters
+
+    - company_id (string, required) - id of employees
+
+### Update company [PATCH]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - address: `Jl. Bausastra 47 Yogyakarta` (string, nullable) 
+        - phone: `081234567` (string, nullable) 
+        - timezone: `asia/jakarta` (string, nullable)
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Company has been successfully updated` (string)
+        + data (object)
+            - id: 1 (number)
+            - codename: `YZZZZZ-106` (string)
+            - name: `Gorczany LLC` (string)
+            - unique_id: `yxzzzvzwqwwzuyyy` (string)
+            - address: `Jl. Bausastra 47 Yogyakarta` (string)
+            - phone: `0845745945` (string)
+            - timezone: `asia/jakarta` (string)
+            - location: `36.6366667,7.123148` (string)
+            - active: 1 (number)
+            - created_at: `2018-07-13T02:36:35.000Z` (string)
+            - updated_at: `2018-07-30T08:17:52.000Z` (string)
+            
+## Update Profile Manager [/me]
+Manager can update his profile through setting page. Profile data can be updated partially from each page.
+
+### Update Profile Manager [PATCH]
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Attributes (object)
+    + data (object)
+        - full_name: `Steve Rogers` - (string, nullable)
+        - email: `captain@america.com` - (string, nullable)
+        - address: `Jl. Bausastra 47 Yogyakarta` - (string, nullable)
+        - phone: `0845745945` - (string, nullable)
+        - timezone: `asia/jakarta` - (string, nullable)
+        - birthday: `1917-06-30` - (string, nullable)
+        - new_password: `hellopassword` - (string, nullable)
+        - old_password: `hellopassword` - (string, nullable)
+        - digital_assets (array)
+            - type: `profile_picture` - (string, nullable)
+            - path: `/path/to/picture` - (string, nullable)
+
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Profile has been sucesfully updated` (string)
+        + data (object)
+            - id: 1 (number)
+            - full_name: `Steve Rogers` (string)
+            - email: `captain@america.com` (string)
+            - birthday: `1917-06-30` (string)
+            - phone: `0845745945` (string)
+            - hash: `$2b$10$2CbMIDY4YROgyhvFd1bB8.UFNiIXynHzJWRmTSUvEjWjRtMhsDJ82` (string)
+            - is_active_notif: 1 (number)
+            - is_phone_confirmed: 1 (number)
+            - currency: `IDR` (string)
+            - registration_complete: 1 (number)
+            - created_at: `2018-07-24T04:38:13.000Z` (string)
+            - updated_at: `2018-07-30T08:53:46.000Z` (string)
+            
+            
+## Get Bank Account Information [/banks]
+Show information of current active bank account linked with user account
+
+### Get Bank Account Information [GET]
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Profile has been sucesfully updated` (string)
+        + data (object)
+            - id: 62 (number)
+            - user_id: 1 (number)
+            - full_name: `Heriberto Moores` (string)
+            - bank_name: `BCA` (string)
+            - bank_branch: `Purwokerto` (string)
+            - account_number: `9015174369` (string)
+            - active: 1 (number)
+            - created_at: `2017-07-15T11:14:24.000Z` (string)
+            - updated_at: `2018-06-20T09:23:50.000Z` (string)

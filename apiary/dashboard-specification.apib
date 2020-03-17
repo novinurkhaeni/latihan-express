@@ -1,0 +1,34 @@
+FORMAT: 1A
+HOST: http://localhost:3000/api/v1/
+
+# Dashboard Specification
+
+In Dashboard, we should see the summary of total salaries and deposit.
+
+## Dashboard summary of total salaries and deposit [/companies/{company_id}/deposit-summary?month={month}&year={year}]
+
++ Parameters
+
+    - month Month (string, required) - in 1-12, default is current month
+    - year Year (string, required) - 4 digit number, default is current year
+    - company_id (string, required)
+
+### Get Dashboard summary of total salaries and deposit [GET]
+
+Get summary of total salaries and deposit in Dashboard
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdsZW5kLm1hYXRpdGFAZ21haWwuY29tIiwicGhvbmUiOiIwODEyMjMzNDQ1NSIsImlkIjo0LCJlbXBsb3llZUlkIjo0LCJlbXBsb3llZVJvbGUiOjEsImlhdCI6MTUyODMzMTA5NywiZXhwIjoxNTI4NDE3NDk3LCJpc3MiOiJiaWJpdG5vbWljLWFwaSIsInN1YiI6ImJpYml0bm9taWMtYWNjZXNzLXRva2VuIiwianRpIjoiYmliaXRub21pYy51c2VyIn0.nKUGhY_4TQSnOfQK47Uj_8w3qIemm3111neVbP2hgNs
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - success: `true` (string)
+        - message: `Deposit summary been successfully retrieved (string)
+    + data (object)
+        - id: 2 (string)
+        - year: 2018 (string)
+        - month: 10 (string)
+        - total_salary: 2500000 (string)
+        - withdraw_candidate: 30000000 (string)

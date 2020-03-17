@@ -1,0 +1,298 @@
+FORMAT: 1A
+HOST: http://localhost:3030
+
+# Bibitnomic
+
+This is API for web and mobile on bibitnomic client
+
+## Register [/register]
+
+As per design to complete registration process following step should be done in the client
+1. Create a Post request to `/register/otp` endpoint
+2. User will get a SMS for One Time Password (OTP)
+3. Create a Post request to `/register/verify` endpoint
+4. If the OTP match the a new user will be created
+
+### Request OTP [POST /register/otp]
+
++ Attributes (object)
+    + data (object)
+        - phone: `085720445689`
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - message: `OTP created successfully` (string)
+        - data (object)
+            - otp: `8765` (string)
+
+### Request OTP [POST /register/verify]
+
++ Attributes (object)
+    + data (object)
+        - otp: `8765` (required)
+        - full_name: `bibitnomic user` (string, required)
+        - email: `testingaccount@gmail.com` (string, required)
+        - pin: 1234 (string, nullable)
+        - password: 123456 (string, required)
+        - date_of_birth: `1990-07-19`
+        - phone: `082167542398` (string, required)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - message: `Registered successfully` (string)
+        - data (User)
+
+## Login [/login]
+
+### Login [POST]
+
++ Attributes (object)
+    + data (object)
+        - email: `testingaccount@gmail.com` (string, required)
+        - password: `123456` (string, required)
+        - provider: `local` (string, required)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - message: `Login successfully` (string)
+        - data (object)
+            - access_token: `9748uiggjkdjflsdjgsdjgiyrreteug` (string)
+            - refresh_token: `44534kjhf` (string)
+            - provider: `local` (string)
+        - included (User)
+
+## User [/users]
+
+### Create User [POST]
+
++ Attributes (object)
+    + data (object)
+        - full_name: `bibitnomic user` (string, required)
+        - email: `testingaccount@gmail.com` (string, required)
+        - pin: 1234 (string, nullable)
+        - password: 123456 (string, required)
+        - date_of_birth: `1990-07-19`
+        - phone: `082167542398` (string, required)
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 201 (application/json)
+    + Attributes (object)
+        - message: `User created successfully!` (string)
+        - data (User)
+        - included (object)
+        - link: `http://localhost:3030/users/1` (string, nullable)
+
+### List User [GET]
+
+Get all users
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - data (array[User])
+        - link: `http://localhost:3030/users` (string, nullable)
+
+### Show User [GET /users/{user_id}]
+
+Show a specific user
+
++ Parameters
+
+    - user_id: `1` (string, required)
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - data (User)
+        - included (object)
+        - link: `http://localhost:3030/users/1` (string, nullable)
+
+### Update User [PUT /users/{user_id}]
+
+Update a specific user information
+
++ Attributes (object)
+    + data (object)
+        - full_name: `bibitnomic user2` (string)
+        - email: `testingaccount@gmail.com` (string)
+        - date_of_birth: `1990-07-19`
+        - phone_id: null (string, nullable)
+
++ Parameters
+
+    - user_id: `1` (string, required)
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        - data (User)
+        - included (object)
+        - link: `http://localhost:3030/users/1` (string, nullable)
+
+### Delete User [DELETE /users/{user_id}]
+
+Delete a user
+
++ Parameters
+
+    - user_id: `1` (string, required)
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 204
+
+
+
+## Company [/companies]
+
+Available include: `users`
+
+### Create Company [POST]
+
+Create a company
+
++ Attributes (object)
+    + data (object)
+        - name: `Acme inc` (string)
+        - address: `Jl. Monjali Gang Sidodadi No.33, Gemawang` (string)
+        - phone: `+62-233-45786` (string)
+    + relationship (array)
+        - type: users - this could be a user, company or family
+        - id: 1
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (Company)
+        + included (array)
+            - (User)
+            - (Address)
+            - (Phone)
+        + link: `http://localhost:3030/addresses/4` (string, nullable)
+
+### List Company [GET]
+
+List all companies
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array[Company])
+        + included (object)
+        + link: `http://localhost:3030/addresses` (string, nullable)
+
+### Show Company [GET /companies/{company_id}]
+
+Show a specific company
+
++ Parameters
+
+    - company_id: 6
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (Company)
+        + included (array)
+            - (User)
+            - (Address)
+            - (Phone)
+        + link: `http://localhost:3030/addresses/4` (string, nullable)
+
+### Update Company [PUT /companies/{company_id}]
+
++ Parameters
+
+    - company_id: 6
+
++ Attributes (object)
+    + data (object)
+        - name: `Acme inc` (string)
+        - address: `Jl. Monjali Gang Sidodadi No.33, Gemawang` (string)
+        - phone: `+62-233-45786` (string)
+    + relationship (array)
+        - type: users - this could be a user, company or family
+        - id: 1
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (Company)
+        + included (array)
+            - (User)
+            - (Address)
+            - (Phone)
+        + link: `http://localhost:3030/addresses/4` (string, nullable)
+
+### Delete Company [DELETE /companies/{company_id}]
+
++ Parameters
+
+    - company_id: 6
+
++ Request (application/json)
+
+        Accept: application/json
+        Authorization: Bearer 9479jflkfjasfjslfjsavn9osjflsfjslkjfwoieur09237yufh
+
++ Response 204
+
+## Data Structures
+
+### User
+- id: 1 (number)
+- full_name: `bibitnomic user` (string)
+- email: `testingaccount@gmail.com` (string)
+- date_of_birth: `1990-07-19` (string)
+- phone_id: null (string, nullable)
+- is_active_notif: false (boolean)
+- is_confirmed_email: false (boolean)
+- created_at: `2018-03-08T07:09:41.000Z` (string)
+- updated_at: `2018-03-08T07:58:34.000Z` (string)
+
+### Company
+- id: 4 (number)
+- name: 'Acme Inc' (string)
+- address_id: 3 (number)
+- phone_id: 24 (number)
