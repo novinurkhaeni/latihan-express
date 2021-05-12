@@ -65,7 +65,7 @@
     "node-cron": "^2.0.3",
     "node-pre-gyp": "^0.12.0",
     "node-xlsx": "^0.14.1",
-    "nodemailer": "^4.6.7",
+    "nodemailer": "^6.4.16",
     "passport-custom": "^1.0.5",
     "pdfmake": "^0.1.53",
     "querystring": "^0.2.0",
